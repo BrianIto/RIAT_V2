@@ -1,0 +1,22 @@
+@import "../../variables"
+
+.modal_header
+  background-color: $primaryColor
+  padding: 0 3%
+  h2
+    color: #FFF
+    text-transform: uppercase
+    font-weight: 400
+    letter-spacing: 1px
+    margin: 0
+    padding: 2% 0
+    i
+      color: darken($primaryColor, 10%)
+      cursor: pointer
+      @include putTransition()
+      padding: 1%
+      float: right
+      &:hover
+        color: darken($primaryColor, 18%)
+.modal_body
+  padding: 3%

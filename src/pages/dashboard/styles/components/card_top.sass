@@ -1,0 +1,21 @@
+@import "../../../../general/variables"
+
+@mixin backgroundColor
+  @for $i from 1 through 3
+    &:nth-child(#{$i})
+      background: lighten($primaryColor, $i * 10)
+
+.card_container
+  color: #FFF
+  margin-top: .8%
+  text-transform: uppercase
+  display: flex
+  width: 100%
+  padding: 1% 0
+  @include backgroundColor
+  h2
+    font-size: 4.5vw
+    margin: auto 10%
+  h3
+    font-size: 1.5vw
+    margin: auto 3.5% auto 0

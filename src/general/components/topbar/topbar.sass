@@ -1,0 +1,31 @@
+@import '../../variables.sass'
+
+.topbar_container
+  position: absolute
+  top: 0
+  left: 0
+  margin-left: $sidebarWidth
+  height: 60px
+  background-color: #FFF
+  z-index: 1001
+  width: 100% - $sidebarWidth
+  display: flex
+  box-shadow: 0 1px 3px rgba(0,0,0,0.16)
+  img
+    margin: auto 2%
+    height: 30px
+  .user_data
+    display: flex
+    width: 100%
+    margin: auto 0
+    text-align: right
+    justify-content: flex-end
+    div
+      cursor: pointer
+      color: #C0C0C0
+      width: 23%
+      margin: auto
+      text-align: right
+      margin-right: 1%
+      button
+        margin: 0 5%

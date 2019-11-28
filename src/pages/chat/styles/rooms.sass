@@ -1,0 +1,28 @@
+@import "../../../general/variables"
+
+.chat_rooms
+  position: absolute
+  display: flex
+  flex-direction: column
+  width: 25%
+  z-index: 2
+  background-color: #FFF
+  height: 100% - 9.5%
+  overflow: auto
+  margin-top: -.8%
+  margin-left: -1.5%
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16)
+  h2
+    padding: 0 5%
+  .room
+    cursor: pointer
+    padding: 5%
+    @include putTransition(.1s)
+    &.selected
+      background-color: #F2F2F2
+    h3
+      margin: 0
+    p
+      margin: 0
+    &:hover
+      background-color: #FBFBFB

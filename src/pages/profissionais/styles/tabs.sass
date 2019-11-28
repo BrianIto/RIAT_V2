@@ -1,0 +1,13 @@
+@import "../../../general/variables"
+
+.tabs
+  margin: 0 -2%
+  position: relative
+  box-shadow: 0 5px 6px #F0F0F0
+  .tab
+    cursor: pointer
+    @include  putTransition(.1s)
+    &:hover:not(.tab_selected)
+      border-bottom: 3px solid #C9C9C9
+  .tab_selected
+    border-bottom: 3px solid $primaryColorLight

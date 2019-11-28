@@ -1,0 +1,26 @@
+@import "../../variables"
+
+.sidebar_container
+  position: fixed
+  background-color: $primaryColor
+  height: 100%
+  z-index: 2
+  width: $sidebarWidth
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2)
+  display: flex
+  flex-direction: column
+  .menu_item
+    font-size: 1.9em
+    width: 100%
+    border-bottom: 3px solid $primaryColorLight
+    @include putTransition()
+    &:hover
+      border-bottom: 3px solid lighten($primaryColorLight, 20%)
+    &.active
+      border-bottom: 3px solid lighten($primaryColorLight, 20%)
+    i
+      padding: .7em 0
+      width: 100%
+      text-align: center
+      color: #FFF
+      text-decoration: none

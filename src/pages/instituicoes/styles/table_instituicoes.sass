@@ -1,0 +1,32 @@
+@import "../../../general/variables"
+
+.table_instituicoes
+  h2
+    margin: 0
+    display: flex
+    flex-grow: 1
+    align-items: center
+    .menu-options
+      flex-grow: 1
+      text-align: right
+    span
+      @include putTransition(.1s)
+    .rotated
+      -webkit-transform: rotate(180deg)
+  .carrousel
+    padding: 0
+    cursor: pointer
+    box-shadow: 0 5px 10px rgba(0,0,0,0.16)
+    margin-top: 2%
+    @include putTransition(.1s)
+    &:first-child
+      margin-top: 0
+    h2
+      padding: 1% 2%
+      display: inherit
+      background-color: #FFF
+      @include putTransition(.1s)
+      &:hover
+        background-color: #F8F8F8
+    .body_carrousel
+      padding: .1% 2%
