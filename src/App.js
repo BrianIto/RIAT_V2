@@ -19,6 +19,7 @@ import {RemoteMongoClient} from "mongodb-stitch-browser-services-mongodb-remote"
 import ConfirmEmailPage from "./pages/messages/confirmEmail/confirm_email";
 import ResetPasswordPage from "./pages/messages/resetPassword/reset_password";
 import DetalhesFinanceiroPage from "./pages/detalhes_financeiro";
+import ConfirmarPagamento from "./pages/messages/confirmar_pagamento";
 
 const App = () => {
 
@@ -47,6 +48,7 @@ const App = () => {
                         <Route path={'/financeiro'} component={FinanceiroPage} />
                         <Route path={'/chat'} component={ChatPage} />
                         <Route path={'/instituicoes'} component={InstituicoesPage} />
+                        <Route path={'/confirmarPagamento'} component={ConfirmarPagamento} />
                         <Route path={'/resetPassword'} component={ResetPasswordPage} />
                         <Route path={process.env.PUBLIC_URL+'/newMedico'} component={NewMedicoPage} />
                         <Route path={process.env.PUBLIC_URL+'/confirmEmail'} component={ConfirmEmailPage}/>

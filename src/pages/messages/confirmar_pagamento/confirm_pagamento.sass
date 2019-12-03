@@ -1,0 +1,22 @@
+@mixin putShadow($transparency: .3)
+  box-shadow: 0 2px 5px rgba(0,0,0, $transparency)
+
+.topbar
+  @include putShadow()
+  padding: 15px
+
+.corpo
+  padding: 10px 30px
+  h1
+    font-weight: 300
+    margin-bottom: 0
+    font-size: 48px
+  p
+    font-weight: 300
+    margin: 10px
+    font-size: 24px
+  .card
+    margin: 50px 150px
+    padding: 15px 30px
+    border-radius: 10px
+    @include putShadow()
