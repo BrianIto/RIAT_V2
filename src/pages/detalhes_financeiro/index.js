@@ -31,9 +31,6 @@ const DetalhesFinanceiroPage = (props) => {
     React.useEffect(() => {
         Financeiro.prepareDataForAnalysis(props.sessoes, data => {
             props.setFinancialData(data);
-            console.log(data);
-            console.log('=========== teste =============');
-            console.log(SupremeObjectOfFinanceiro());
         });
     }, []);
 

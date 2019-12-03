@@ -9,6 +9,7 @@ import ModalForgetPassword from "../../../pages/login/components/modals/modal_fo
 import FinanceiroModal from "../../../pages/instituicoes/components/modals/financeiro_modal";
 import ModalEditarPaciente from "../../../pages/pacientes/components/modals/modal_editar";
 import NovaSaidaModal from "../../../pages/financeiro/components/modals/nova_saida";
+import FecharMesModal from "../../../pages/detalhes_financeiro/components/modals/confirm_fechar_mes";
 
 const renderModalAccordingly = (modalType) => {
     switch (modalType) {
@@ -22,6 +23,8 @@ const renderModalAccordingly = (modalType) => {
             return <FinanceiroModal />
         case 'MODAL_EDITAR_PACIENTE':
             return <ModalEditarPaciente />
+        case 'MODAL_CONFIRM_FECHAR_MES':
+            return <FecharMesModal />
         case 'MODAL_NOVA_SAIDA':
             return <NovaSaidaModal />
             default:

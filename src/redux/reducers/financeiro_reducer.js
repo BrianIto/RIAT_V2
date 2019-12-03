@@ -2,7 +2,7 @@ import {Actions} from "../actions";
 
 const initialState = {
     saidas: [],
-    mesSelected: '',
+    mesSelected: {},
     sessoesInstituicao: [],
     sessoes: [],
     financialData: [],
@@ -26,6 +26,8 @@ const FinanceiroReducer = (state = initialState, action) => {
             return {...state, lucroFromInstMes: action.payload};
         case Actions.setInstituicoesComSessoes:
             return {...state, instituicoesComSessoes: action.payload};
+        case Actions.setMesSelected:
+            return {...state, mesSelected: action.payload};
             default:
             return state
     }
