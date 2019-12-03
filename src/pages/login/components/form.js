@@ -33,6 +33,11 @@ const FormLogin = (props) => {
                                 getMedicos(props);
                                 getInstituicao(props);
                                 getFamiliares(props);
+                                Financeiro.getMesesFechados(res => {
+                                    props.setMesesFechados(res)
+                                }, error => {
+                                    alert("ERRO AO RECUPERAR MESES FECHADOS. INFO: "+error)
+                                }, () => {});
                                 Financeiro.getSessoes(res => {
                                     props.setSessoes(res.data);
                                 }, err => alert('Erro ao recuperar sessoes. Erro: '+err));
@@ -125,7 +130,8 @@ const FormLogin = (props) => {
 
 const mapStateToProps = (state) => ({
     userData: state.login.userData,
-    connectedToDB: state.general.connectedToDB
+    connectedToDB: state.general.connectedToDB,
+    mesesFechados: state.financeiro.mesesFechados
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -137,7 +143,8 @@ const mapDispatchToProps = (dispatch) => ({
     setSaidas: saidas => dispatch({type: Actions.getSaidas, payload: saidas}),
     setSessoes: sessoes => dispatch({type: Actions.setSessoes, payload: sessoes}),
     getProfissionais: (profissionais) => dispatch({type: 'SET_PROFISSIONAIS', payload: profissionais}),
-    setFamiliares: (familiares) => dispatch({type: 'SET_FAMILIARES', payload: familiares})
+    setFamiliares: (familiares) => dispatch({type: 'SET_FAMILIARES', payload: familiares}),
+    setMesesFechados: (mesesFechados) => dispatch({type: Actions.setMesesFechados, payload: mesesFechados})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormLogin)

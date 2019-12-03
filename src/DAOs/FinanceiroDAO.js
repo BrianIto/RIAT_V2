@@ -65,6 +65,18 @@ class Financeiro {
             })
     }
 
+    static getMesesFechados = (callbackSuccess, callbackError, callbackLoading) => {
+        callbackLoading();
+        axios
+            .get("https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/financeiro/incoming_webhook/getMesesFechados")
+            .then(res => {
+                callbackSuccess(res.data);
+            })
+            .catch(error => {
+                callbackError(error);
+            })
+    }
+
     static prepareDataForAnalysis = async (sessions, callbackSuccess, callbackFail, loadingCallback = () => {
     }) => {
         let data;

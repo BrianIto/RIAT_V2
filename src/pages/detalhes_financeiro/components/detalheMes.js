@@ -19,12 +19,24 @@ const DetalheMes = props => {
         props.showModal("MODAL_CONFIRM_FECHAR_MES", 'sm');
     }
 
+    const checkIfMonthClosed = () => {
+        let value = false;
+        props.mesesFechados.forEach(mes => {
+            if (mes.mes === moment(props.monthStr, 'MM').locale('pt-BR').format('MMMM / 2019')) {
+                value = true;
+            }
+        });
+        return value;
+    }
+
     return (
         <div>
             <div style={{display: 'flex'}}>
                 <h1>{moment(props.monthStr, 'MM').locale('pt-BR').format('MMMM')}</h1>
                 <div style={{width: '100%', margin: 'auto'}}>
-                    <Button onClick={onClickMesSelected} style={{float: "right"}} color={"primary"} variant={"contained"}>Fechar o Mês</Button>
+                    <Button onClick={onClickMesSelected} style={{float: "right"}} color={"primary"} variant={"contained"} disabled={checkIfMonthClosed()}>
+                        {checkIfMonthClosed() ? "Mês fechado" : "Fechar o Mês"}
+                    </Button>
                 </div>
             </div>
             {
@@ -41,7 +53,8 @@ const DetalheMes = props => {
 }
 
 const mapStateToProps = state => ({
-    mesSelected: state.financeiro.mesSelected
+    mesSelected: state.financeiro.mesSelected,
+    mesesFechados: state.financeiro.mesesFechados,
 })
 
 const mapDispatchToProps = dispatch => ({
