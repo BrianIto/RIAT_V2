@@ -45,14 +45,6 @@ const DetalhesFinanceiroPage = (props) => {
                 <div className={'page_container container_detalhes_financeiro'}>
                     <h1 className={'page_title'}>Detalhes Financeiros - 2019</h1>
                     <p>Nesta página se localizam os detalhes do fluxo de caixa do ano corrente.</p>
-                    {/*<h1>Para fazer: Colocar Familiar diferente das Instituições.</h1>*/}
-                    {/*<h1>*/}
-                    {/*    Para fazer: No familiar Total Faturado ao invés de Lucro por instituicao.*/}
-                    {/*    TOTAL FATURADO = HORAS DO AT * PRECO DA INSTITUICAO*/}
-                    {/*</h1>*/}
-                    {/*<h1>Para Familiar: COLOCAR PREÇO COMO INSTITUIÇÃO</h1>*/}
-                    {/*<h1>Para fazer: Total dos ATS embaixo do total faturado</h1>*/}
-                    {/*<h1>Para fazer: Colocar Familiar diferente das Instituições.</h1>*/}
                     {loading ? <p>Carregando...</p> : <></>}
                     {meses.map((mes, index) => (
                         <DetalheMes financialData={props.financialData} monthStr={mes} sessoesInstituicao={props.sessoesInstituicao} key={index}/>
