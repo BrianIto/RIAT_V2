@@ -65,6 +65,18 @@ class Financeiro {
             })
     }
 
+    static getMesesFechados = (callbackSuccess, callbackError, callbackLoading) => {
+        callbackLoading();
+        axios
+            .get("https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/financeiro/incoming_webhook/getMesesFechados")
+            .then(res => {
+                callbackSuccess(res.data);
+            })
+            .catch(error => {
+                callbackError(error);
+            })
+    }
+
     static prepareDataForAnalysis = async (sessions, callbackSuccess, callbackFail, loadingCallback = () => {
     }) => {
         let data;
@@ -73,13 +85,7 @@ class Financeiro {
             data.forEach(instituicao => {
                 instituicao.pacientes.forEach(paciente => {
                     paciente.acompanhantes.forEach(acompanhante => {
-                        let sessions = [];
-                        sessions.forEach(session => {
-                            if (acompanhante._id.$oid === session.acompanhante.$oid) {
-                                sessions.push(session);
-                            }
-                        })
-                        acompanhante['sessoes'] = sessions;
+                        acompanhante['sessoes'] = Financeiro.getSessoesFromPacienteAndAt(sessions, paciente.solicitacao._id.$oid, acompanhante._id.$oid);
                     })
                 })
             })
@@ -106,9 +112,9 @@ class Financeiro {
             let now = new Date(item.horaInicio);
             let then = new Date(item.horarioFim);
             if (month === now.getMonth()) {
-                item["timeBetween"] = moment.utc(moment(now).diff(moment(then))).hours();
-                if (!isNaN(item["timeBetween"])) {
-                    totalHoras += item["timeBetween"];
+                item["horasTrabalhadas"] = moment.utc(moment(then).diff(moment(now))).hours();
+                if (!isNaN(item["horasTrabalhadas"])) {
+                    totalHoras += item["horasTrabalhadas"];
                 }
             }
         });
@@ -116,6 +122,18 @@ class Financeiro {
         return totalHoras;
     }
 
+    static fechaMes = (mes, callbackSuccess, callbackFail, callbackLoading = () => {}) => {
+        callbackLoading();
+        let url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/financeiro/incoming_webhook/fechaMes';
+        axios
+            .post(url, mes)
+            .then(res => {
+                callbackSuccess(res);
+            })
+            .catch(error => {
+                callbackFail(error);
+            });
+    }
 }
 
 export default Financeiro

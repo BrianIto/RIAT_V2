@@ -47,28 +47,28 @@ const Instituicao = (props) => {
             </span>
             </h2>
             <Grid container xs={12} spacing={5}>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                     <p>Valor da Hora:
                         <span style={{float: 'right'}}>
                             {'valorHora' in props.instituicao ? '$'+props.instituicao.valorHora : <i>Ainda não definido.</i>}
                         </span>
                     </p>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                     <p>Valor de Repasse para AT:
                         <span style={{float: 'right'}}>
                             {'valorHora' in props.instituicao ? '$'+props.instituicao.valorHoraAT : <i>Ainda não definido.</i>}
                         </span>
                     </p>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                     <p>Quantidade de Pacientes:
                         <span style={{float: 'right'}}>
                         {props.instituicao.pacientes.length}
                     </span>
                     </p>
                 </Grid>
-                <Grid xs={4} item>
+                <Grid xs={3} item>
                     <p>Funcionários registrados:
                         <span style={{float: 'right'}}>
                         {props.instituicao.funcionario.length}

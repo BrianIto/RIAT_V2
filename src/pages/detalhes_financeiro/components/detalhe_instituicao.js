@@ -3,6 +3,7 @@ import DetalhePaciente from "./detalhe_paciente";
 import "../styles/detalhe_instituicao.sass"
 import Grid from "@material-ui/core/Grid";
 import {Actions} from "../../../redux/actions";
+import {connect} from "react-redux";
 
 const DetalheInstituicao = (props) => {
 
@@ -53,4 +54,14 @@ const DetalheInstituicao = (props) => {
     )
 }
 
-export default DetalheInstituicao;
+const mapStateToProps = state => ({
+    mesSelected: state.financeiro.mesSelected,
+    mesesFechados: state.financeiro.mesesFechados
+})
+
+const mapDispatchToProps = dispatch => ({
+    setMesSelected: mes => dispatch({type: Actions.setMesSelected, payload: mes}),
+    showModal: (modalType, modalSize) => dispatch({type: Actions.showModal, payload: modalType, size: modalSize})
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetalheInstituicao);

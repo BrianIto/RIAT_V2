@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import FormLogin from "./components/form";
 import AboveForm from "./components/above_form";
+import Financeiro from "../../DAOs/FinanceiroDAO";
 
 const LoginPage = (props) => {
 

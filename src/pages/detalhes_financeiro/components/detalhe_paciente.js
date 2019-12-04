@@ -15,7 +15,7 @@ const DetalhePaciente = (props) => {
         aux2[props.index] = totalATs;
         props.setTotalATs(aux2);
         props.setLucroTotal(aux);
-    });
+    }, []);
 
     return (
         <div className={'detalhe_paciente_container'}>

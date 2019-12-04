@@ -2,12 +2,13 @@ import {Actions} from "../actions";
 
 const initialState = {
     saidas: [],
-    mesSelected: '',
+    mesSelected: {},
     sessoesInstituicao: [],
     sessoes: [],
     financialData: [],
     lucroFromInstMes: [],
     instituicoesComSessoes: [],
+    mesesFechados: []
 }
 
 const FinanceiroReducer = (state = initialState, action) => {
@@ -20,12 +21,16 @@ const FinanceiroReducer = (state = initialState, action) => {
             return {...state, sessoesInstituicao: action.payload};
         case Actions.setSessoes:
             return {...state, sessoes: action.payload};
+        case Actions.setMesesFechados:
+            return {...state, mesesFechados: action.payload};
         case Actions.setFinancialData:
             return {...state, financialData: action.payload};
         case Actions.setLucroFromInstMes:
             return {...state, lucroFromInstMes: action.payload};
         case Actions.setInstituicoesComSessoes:
             return {...state, instituicoesComSessoes: action.payload};
+        case Actions.setMesSelected:
+            return {...state, mesSelected: action.payload};
             default:
             return state
     }
