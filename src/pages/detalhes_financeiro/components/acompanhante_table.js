@@ -59,7 +59,8 @@ const AcompanhanteTable = (props) => {
 }
 
 const mapStateToProps = state => ({
-    sessoes: state.financeiro.sessoes
+    sessoes: state.financeiro.sessoes,
+    mesesFechados: state.financeiro.setMesesFechados
 });
 
 export default connect(mapStateToProps)(AcompanhanteTable);
