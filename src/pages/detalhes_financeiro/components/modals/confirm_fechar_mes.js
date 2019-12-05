@@ -15,6 +15,7 @@ const FecharMesModal = props => {
 
         Financeiro.fechaMes(props.mesSelected, res  => {
             alert('Mês fechado com sucesso!');
+            Financeiro.getMesesFechados(res => props.setMesesFechados(res));
             props.closeModal();
             setLoading(false);
         }, err => {
@@ -56,6 +57,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    setMesesFechados: mesesFechados => dispatch({type: Actions.setMesesFechados, payload: mesesFechados}),
     closeModal: () => dispatch({type: Actions.closeModal})
 })
 

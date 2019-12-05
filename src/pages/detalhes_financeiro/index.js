@@ -2,19 +2,26 @@ import React from "react"
 import Sidebar from "../../general/components/sidebar/sidebar";
 import Topbar from "../../general/components/topbar/topbar";
 import {Redirect} from "react-router";
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import DetalhePaciente from "./components/detalhe_paciente";
 import DetalheInstituicao from "./components/detalhe_instituicao";
 import "./styles/index.sass"
 import {Actions} from "../../redux/actions";
 import Financeiro from "../../DAOs/FinanceiroDAO";
 import DetalheMes from "./components/detalheMes";
+import moment from "moment/min/moment-with-locales";
 
 const DetalhesFinanceiroPage = (props) => {
 
     const [loading, setLoading] = React.useState(false);
 
-    const setMeses = () => { let x = []; for (let i = 1; i < 13; ++i) { x.push(`${i}`) } return x; };
+    const setMeses = () => {
+        let x = [];
+        for (let i = 1; i < 13; ++i) {
+            x.push(`${i}`)
+        }
+        return x;
+    };
     const meses = setMeses();
 
     const SupremeObjectOfFinanceiro = () => {
@@ -52,13 +59,14 @@ const DetalhesFinanceiroPage = (props) => {
                     {/*<h1>Para fazer: Colocar Familiar diferente das Instituições.</h1>*/}
                     {loading ? <p>Carregando...</p> : <></>}
                     {meses.map((mes, index) => (
-                        <DetalheMes financialData={props.financialData} monthStr={mes} sessoesInstituicao={props.sessoesInstituicao} key={index}/>
+                        <DetalheMes financialData={props.financialData} monthStr={mes}
+                                    sessoesInstituicao={props.sessoesInstituicao} key={index}/>
                     ))}
                 </div>
             </div>
         )
     } else {
-        return (<Redirect to={'/'} />)
+        return (<Redirect to={'/'}/>)
     }
 }
 

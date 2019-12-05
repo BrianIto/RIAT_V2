@@ -9,7 +9,8 @@ const Actions = {
     setFinancialData: 'set_financial_data',
     setLucroFromInstMes: 'set_lucro_instmes',
     setInstituicoesComSessoes: '3983084301',
-    setMesesFechados: 'SET_MESES_FECHADOS'
+    setMesesFechados: 'SET_MESES_FECHADOS',
+    setProfissionais: 'SET_PROFISSIONAIS',
 }
 
 export {Actions}

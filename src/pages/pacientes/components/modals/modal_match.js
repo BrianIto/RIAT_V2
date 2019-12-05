@@ -4,13 +4,16 @@ import Grid from "@material-ui/core/Grid";
 import {Button, InputAdornment, Select, TextField} from "@material-ui/core";
 import "../../styles/modals/modal_match.sass"
 import axios from "axios";
+import ProfissionaisReducer from "../../../../redux/reducers/profissionais_reducer";
+import {getProfissionais} from "../../../../DAOs/ProfissionalDAO";
+import {Actions} from "../../../../redux/actions";
 
 const getHorarioString = (props) => {
     if (props.pacienteSelected.solicitacao[0].hasOwnProperty('freq')) {
         let x = '';
 
         props.pacienteSelected.solicitacao[0].freq.forEach((freq) => {
-            x += freq.dia + " - "+freq.horaInicio + " ~ " + freq.horaFin+", ";
+            x += freq.dia + " - " + freq.horaInicio + " ~ " + freq.horaFin + ", ";
         });
 
         return x;
@@ -22,17 +25,17 @@ const getHorarioString = (props) => {
 const diasSemanaArray = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
 
 const getDisponibilidadString = (profissional) => {
-        let x = '';
-        if (profissional.preferencias.disponibilidad.manana)
-            x += 'Mañana, ';
-        if (profissional.preferencias.disponibilidad.tarde)
-            x += 'Tarde, ';
-        if (profissional.preferencias.disponibilidad.noche)
-            x+= 'Noche. ';
-        if (x.length === 0) {
-            x = <i>Sem horários</i>;
-        }
-        return x;
+    let x = '';
+    if (profissional.preferencias.disponibilidad.manana)
+        x += 'Mañana, ';
+    if (profissional.preferencias.disponibilidad.tarde)
+        x += 'Tarde, ';
+    if (profissional.preferencias.disponibilidad.noche)
+        x += 'Noche. ';
+    if (x.length === 0) {
+        x = <i>Sem horários</i>;
+    }
+    return x;
 }
 
 const getDaysString = daysArray => {
@@ -42,7 +45,7 @@ const getDaysString = daysArray => {
     if (daysArray) {
         daysArray.forEach((day, index) => {
             if (day) {
-                string += days[index]+", ";
+                string += days[index] + ", ";
             }
         });
     }
@@ -61,7 +64,12 @@ const ModalMatch = (props) => {
                 profissional.requests.forEach(request => {
                     if (props.pacienteSelected.solicitacao.length > 0) {
                         if (request.solicitacao.$oid === props.pacienteSelected.solicitacao[0]._id.$oid) {
-                            x.push({profissional: profissional, horaInicio: request.horarioInicio, horaFim: request.horarioFim, dias: request.dias});
+                            x.push({
+                                profissional: profissional,
+                                horaInicio: request.horarioInicio,
+                                horaFim: request.horarioFim,
+                                dias: request.dias
+                            });
                         }
                     }
                 });
@@ -102,18 +110,19 @@ const ModalMatch = (props) => {
                                 fullWidth
                                 disabled
                                 label={'Horários'}
-                                defaultValue={getHorarioString(props)} />
+                                defaultValue={getHorarioString(props)}/>
                         </Grid>
                         <Grid item xs={4}>
                             <p style={{marginBottom: 5, marginTop: 0, textAlign: 'center'}}>Dia da Semana</p>
                             <div className={'diasSemana'}>
-                            {diasSemanaArray.map((dia, index) => (
-                                <div className={diasSelected[index] ? 'diaSemana selected' : 'diaSemana'} onClick={() => {
-                                    let newArray = [...diasSelected];
-                                    newArray[index] = !newArray[index];
-                                    selectDia(newArray);
-                                }}><span>{dia}</span></div>
-                            ))}
+                                {diasSemanaArray.map((dia, index) => (
+                                    <div className={diasSelected[index] ? 'diaSemana selected' : 'diaSemana'}
+                                         onClick={() => {
+                                             let newArray = [...diasSelected];
+                                             newArray[index] = !newArray[index];
+                                             selectDia(newArray);
+                                         }}><span>{dia}</span></div>
+                                ))}
                             </div>
                         </Grid>
                         <Grid item xs={4}>
@@ -135,12 +144,12 @@ const ModalMatch = (props) => {
                         <h2>Assistentes Propostos</h2>
                         <table>
                             <thead>
-                                <tr>
-                                    <td>Nome</td>
-                                    <td>Hora de Início</td>
-                                    <td>Hora do Fim</td>
-                                    <td>Dias</td>
-                                </tr>
+                            <tr>
+                                <td>Nome</td>
+                                <td>Hora de Início</td>
+                                <td>Hora do Fim</td>
+                                <td>Dias</td>
+                            </tr>
                             </thead>
                             <tbody>
                             {propostas.map((proposta) => (
@@ -160,46 +169,56 @@ const ModalMatch = (props) => {
                         <TextField variant={"outlined"} fullWidth label={'Buscar por Nome'}/>
                         <table>
                             <thead>
-                                <tr>
-                                    <td>Nome</td><td>Disponibilidade</td><td>Telefone</td><td></td>
-                                </tr>
+                            <tr>
+                                <td>Nome</td>
+                                <td>Disponibilidade</td>
+                                <td>Telefone</td>
+                                <td></td>
+                            </tr>
                             </thead>
                             <tbody>
-                                { props.profissionais.map( (profissional, index) => (
-                                    <tr>
-                                        <td>{profissional.nombre}</td>
-                                        <td>{getDisponibilidadString(profissional)}</td>
-                                        <td>{profissional.telefono}</td>
-                                        <td>
-                                            <Button
-                                                variant={'contained'}
-                                                onClick={() => {
-                                                    // TODO: informacoes.
-                                                }}
-                                                color={'primary'}>
-                                                + Info
-                                            </Button> &nbsp;
-                                            <Button
-                                                variant={'contained'}
-                                                onClick={() => {
-                                                    const data = {
-                                                        solicitacaoId: props.pacienteSelected.solicitacao[0]._id,
-                                                        idAcompanhante: profissional._id,
-                                                        dias: diasSelected,
-                                                        horarioInicio: horaInicio,
-                                                        horarioFim: horaFim,
-                                                    }
-                                                    axios.post('https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/acompanhante/incoming_webhook/sendMatchRequest',
-                                                        data)
-                                                        .then(res => alert('Sucesso!'))
-                                                        .catch(err => {alert(err)});
-                                                }}
-                                                color={'primary'}>
-                                                Propor
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))}
+                            {props.profissionais.map((profissional, index) => (
+                                <tr>
+                                    <td>{profissional.nombre}</td>
+                                    <td>{getDisponibilidadString(profissional)}</td>
+                                    <td>{profissional.telefono}</td>
+                                    <td>
+                                        <Button
+                                            variant={'contained'}
+                                            onClick={() => {
+                                                // TODO: informacoes.
+                                            }}
+                                            color={'primary'}>
+                                            + Info
+                                        </Button> &nbsp;
+                                        <Button
+                                            variant={'contained'}
+                                            onClick={() => {
+                                                const data = {
+                                                    solicitacaoId: props.pacienteSelected.solicitacao[0]._id,
+                                                    idAcompanhante: profissional._id,
+                                                    dias: diasSelected,
+                                                    horarioInicio: horaInicio,
+                                                    horarioFim: horaFim,
+                                                }
+                                                axios.post('https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/acompanhante/incoming_webhook/sendMatchRequest',
+                                                    data)
+                                                    .then(res => {
+                                                        getProfissionais(props, () => {
+                                                            setPropostas(getProfissionaisWithProposta())
+                                                        });
+                                                        alert('Sucesso!');
+                                                    })
+                                                    .catch(err => {
+                                                        alert(err)
+                                                    });
+                                            }}
+                                            color={'primary'}>
+                                            Propor
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
                             </tbody>
                         </table>
                     </Grid>
@@ -215,7 +234,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    closeModal: () => dispatch({type: 'CLOSE_MODAL'})
+    closeModal: () => dispatch({type: 'CLOSE_MODAL'}),
+    getProfissionais: profissionais => dispatch({type: Actions.setProfissionais, payload: profissionais})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalMatch);
