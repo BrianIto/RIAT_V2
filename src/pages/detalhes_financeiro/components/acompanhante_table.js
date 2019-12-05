@@ -3,6 +3,7 @@ import "../styles/acompanhante_table.sass"
 import {connect} from "react-redux";
 import Financeiro from "../../../DAOs/FinanceiroDAO";
 import moment from "moment"
+
 const AcompanhanteRow = (props) => {
 
     let horasTrabalhadas = (Financeiro.getHorasTrabalhadasInPacienteAndAcompanhante(props.sessoes, props.paciente.solicitacao._id.$oid, props.acompanhante._id.$oid, props.month));
@@ -37,29 +38,33 @@ const AcompanhanteTable = (props) => {
     return (
         <table className={'acompanhante_table'}>
             <thead>
-                <tr>
-                    <td>Nome do AT</td>
-                    <td>Horas Trabalhadas</td>
-                    <td>Valor da Hora na Factura</td>
-                    <td>Valor da Hora para AT</td>
-                    <td>Total recebido do AT</td>
-                    <td>Total a ser pago</td>
-                </tr>
+            <tr>
+                <td>Nome do AT</td>
+                <td>Horas Trabalhadas</td>
+                <td>Valor da Hora na Factura</td>
+                <td>Valor da Hora para AT</td>
+                <td>Total recebido do AT</td>
+                <td>Total a ser pago</td>
+            </tr>
             </thead>
-            {props.acompanhantes.map((acompanhante, index) => (
-                <AcompanhanteRow
-                    paciente={props.paciente}
-                    instituicao={props.instituicao}
-                    sessoes={props.sessoes}
-                    month={props.month}
-                    acompanhante={acompanhante} key={index}/>
-            ))}
+            {props.acompanhantes.map((acompanhante, index) => {
+                    return (
+                        <AcompanhanteRow
+                            paciente={props.paciente}
+                            instituicao={props.instituicao}
+                            sessoes={props.sessoes}
+                            month={props.month}
+                            acompanhante={acompanhante} key={index}/>
+                    )
+            })
+            }
         </table>
     )
 }
 
 const mapStateToProps = state => ({
-    sessoes: state.financeiro.sessoes
+    sessoes: state.financeiro.sessoes,
+    mesesFechados: state.financeiro.setMesesFechados
 });
 
 export default connect(mapStateToProps)(AcompanhanteTable);

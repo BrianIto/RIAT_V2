@@ -101,6 +101,7 @@ const EntradaMensal = (props) => {
                     x.map((val, index) => (
                         <Grid item key={index} xs={4}>
                             <ModalData
+                                key={index}
                                 index={index}
                                 instituicoes={props.instituicoes}
                                 month={moment().add(index, "month").month()}
