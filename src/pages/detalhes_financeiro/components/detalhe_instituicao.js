@@ -7,8 +7,11 @@ import {connect} from "react-redux";
 
 const DetalheInstituicao = (props) => {
 
-    const [lucroTotal, setLucroTotal] = React.useState(new Array(props.instituicao.pacientes.length).fill(0));
-    const [totalATs, setTotalATs] = React.useState(new Array(props.instituicao.pacientes.length).fill(0));
+    const [lucroTotal, setLucroTotal] = React.useState(new Array('pacientes' in props.instituicao
+        ? props.instituicao.pacientes.length : 2).fill(0));
+    const [totalATs, setTotalATs] = React.useState(new Array('pacientes' in props.instituicao
+        ? props.instituicao.pacientes.length : 2
+    ).fill(0));
 
     const getSum = array => {
         let valor = 0;
@@ -37,18 +40,21 @@ const DetalheInstituicao = (props) => {
                 </Grid>
             </Grid>
             {
-                props.instituicao.pacientes.map((paciente, index) => (
-                    <DetalhePaciente
-                        month={props.month}
-                        instituicao={props.instituicao}
-                        paciente={paciente}
-                        index={index}
-                        lucroTotal={lucroTotal}
-                        totalATs={totalATs}
-                        setTotalATs={setTotalATs}
-                        setLucroTotal={setLucroTotal}
-                        key={index}/>
-                ))
+                'pacientes' in props.instituicao ?
+                props.instituicao.pacientes.map((paciente, index) => {
+                    return (
+                        <DetalhePaciente
+                            month={props.month}
+                            instituicao={props.instituicao}
+                            paciente={paciente}
+                            index={index}
+                            lucroTotal={lucroTotal}
+                            totalATs={totalATs}
+                            setTotalATs={setTotalATs}
+                            setLucroTotal={setLucroTotal}
+                            key={index}/>
+                    )
+                }) : null
             }
         </div>
     )
