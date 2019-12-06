@@ -10,18 +10,14 @@
     height: 100%
     .spinner
         margin: auto
-        animation: ease-in-out rotate infinite 1s
+        animation: ease-in-out rotate infinite 6s
 
 @keyframes rotate 
     0%
         transform: scale(1)
         transform: rotate(0)
-        opacity: .3
-    50%
-        transform: scale(1.5)
-        transform: rotate(360deg)
         opacity: 1
     100%
         transform: scale(1)
-        transform: rotate(0deg)
-        opacity: .3
+        transform: rotate(360deg)
+        opacity: 1

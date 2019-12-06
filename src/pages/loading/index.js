@@ -54,7 +54,7 @@ const LoadingPage = (props) => {
         return (<Redirect to={'/dashboard'}/>)
     }else{
         return (<div className={"container_loading"}> 
-            <img className={"spinner"} src ={require('../../assets/índice.jpeg')}/>
+            <img className={"spinner"} src ={require('../../assets/loading.png')}/>
         </div>)
     }
     
