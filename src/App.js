@@ -20,6 +20,7 @@ import ConfirmEmailPage from "./pages/messages/confirmEmail/confirm_email";
 import ResetPasswordPage from "./pages/messages/resetPassword/reset_password";
 import DetalhesFinanceiroPage from "./pages/detalhes_financeiro";
 import ConfirmarPagamento from "./pages/messages/confirmar_pagamento";
+import LoadingPage from "./pages/loading/index"
 
 const App = () => {
 
@@ -40,6 +41,7 @@ const App = () => {
                 <Switch>
                     <Provider store={Store}>
                         <Route path={'/'} exact={true} component={LoginPage}/>
+                        <Route path={'/loading'} component={LoadingPage}/>
                         <Route path={'/dashboard'} component={DashboardPage}/>
                         <Route path={'/pacientes'} component={PacientesPage}/>
                         <Route path={'/profissionais'} component={ProfissionaisPage}/>

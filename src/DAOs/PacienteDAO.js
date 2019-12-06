@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const setPacientes = props => {
-    axios.get('https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/paciente/incoming_webhook/getPacientesComSolicitacao')
+    return axios.get('https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/paciente/incoming_webhook/getPacientesComSolicitacao')
         .then(result => {
             console.log(result.data);
             props.setPacientes(result.data);

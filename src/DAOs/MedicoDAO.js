@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const getMedicos = props => {
-    axios
+    return axios
         .get('https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/psis/incoming_webhook/getAllPsis')
         .then(res => {
             console.log(res.data);

@@ -40,6 +40,7 @@ const FinanceiroModal = (props) => {
         }).then(() => {
             alert('Sucesso!');
             isLoading(false);
+            props.closeModal();
         }).catch((err) => {
             alert(err);
             isLoading(false);

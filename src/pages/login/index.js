@@ -8,7 +8,7 @@ import Financeiro from "../../DAOs/FinanceiroDAO";
 const LoginPage = (props) => {
 
     if (props.userData) {
-        return (<Redirect to={'/dashboard'}/>)
+        return (<Redirect to={'/loading'}/>)
     }
     return (
         <div className={'full_container full_container_login'} style={{height: '100%'}}>

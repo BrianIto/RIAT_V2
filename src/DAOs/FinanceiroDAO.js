@@ -35,7 +35,7 @@ class Financeiro {
     }) => {
         loadingCallback();
         const url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/financeiro/incoming_webhook/getSessaoComInstituicao';
-        axios
+        return axios
             .post(url, data)
             .then(res => callbackSuccess(res))
             .catch(err => callbackFail(err));
@@ -45,7 +45,7 @@ class Financeiro {
     }) => {
         const url = 'https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/sessoes/incoming_webhook/getSessoes';
         loadingCallback();
-        axios
+        return axios
             .get(url)
             .then(res => callbackSuccess(res))
             .catch(err => callbackFail(err))
@@ -67,7 +67,7 @@ class Financeiro {
 
     static getMesesFechados = (callbackSuccess, callbackError = () => {}, callbackLoading = () => {}) => {
         callbackLoading();
-        axios
+        return axios
             .get("https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/financeiro/incoming_webhook/getMesesFechados")
             .then(res => {
                 callbackSuccess(res.data);

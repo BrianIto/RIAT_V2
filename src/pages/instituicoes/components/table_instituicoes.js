@@ -50,14 +50,14 @@ const Instituicao = (props) => {
                 <Grid item xs={3}>
                     <p>Valor da Hora:
                         <span style={{float: 'right'}}>
-                            {'valorHora' in props.instituicao ? '$'+props.instituicao.valorHora : <i>Ainda não definido.</i>}
+                            {'valorHora' in props.instituicao ? '$'+ props.instituicao.valorHora : <i>Não definido.</i>}
                         </span>
                     </p>
                 </Grid>
                 <Grid item xs={3}>
                     <p>Valor de Repasse para AT:
                         <span style={{float: 'right'}}>
-                            {'valorHora' in props.instituicao ? '$'+props.instituicao.valorHoraAT : <i>Ainda não definido.</i>}
+                            {'valorHora' in props.instituicao ? '$'+props.instituicao.valorHoraAT : <i>Não definido.</i>}
                         </span>
                     </p>
                 </Grid>

@@ -30,24 +30,25 @@ const FormLogin = (props) => {
                             {_id: {$oid: user.id}, email: credential.user })
                             .then(res => {
                                 props.setUserData(res.data);
-                                getMedicos(props);
-                                getInstituicao(props);
-                                getFamiliares(props);
-                                Financeiro.getMesesFechados(res => {
-                                    props.setMesesFechados(res)
-                                }, error => {
-                                    alert("ERRO AO RECUPERAR MESES FECHADOS. INFO: "+error)
-                                }, () => {});
-                                Financeiro.getSessoes(res => {
-                                    props.setSessoes(res.data);
-                                }, err => alert('Erro ao recuperar sessoes. Erro: '+err));
-                                Financeiro.getSaidasFromDB(res => {
-                                    props.setSaidas(res.data);
-                                }, () => {
-                                    alert("Erro ao recuperar as saídas do banco.")
-                                })
-                                setPacientes(props);
-                                getProfissionais(props);
+                                // //tela de loading
+                                // getMedicos(props);
+                                // getInstituicao(props);
+                                // getFamiliares(props);
+                                // Financeiro.getMesesFechados(res => {
+                                //     props.setMesesFechados(res)
+                                // }, error => {
+                                //     alert("ERRO AO RECUPERAR MESES FECHADOS. INFO: "+error)
+                                // }, () => {});
+                                // Financeiro.getSessoes(res => {
+                                //     props.setSessoes(res.data);
+                                // }, err => alert('Erro ao recuperar sessoes. Erro: '+err));
+                                // Financeiro.getSaidasFromDB(res => {
+                                //     props.setSaidas(res.data);
+                                // }, () => {
+                                //     alert("Erro ao recuperar as saídas do banco.")
+                                // })
+                                // setPacientes(props);
+                                // getProfissionais(props);
                             })
                             .catch((err) => {
                                 alert(err);
