@@ -134,6 +134,13 @@ class Financeiro {
                 callbackFail(error);
             });
     }
+    static pagamento = (dados, callbackSuccess, callbackFail = () => ({})) => {
+        let url = 'http://ec2-52-207-222-213.compute-1.amazonaws.com:3000/';
+        return axios
+            .post(url, dados)
+            .then(callbackSuccess)
+            .catch(callbackFail);
+    }
 }
 
 export default Financeiro
