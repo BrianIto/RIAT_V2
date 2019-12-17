@@ -31,7 +31,7 @@ const ModalData = (props) => {
                         console.log(instituicao);
                         let meses = getNmestres(Number(mes) - 1, Number(instituicao.freqPagamento.$numberInt));
                         if (meses.includes(arrayAux[props.month])) {
-                            return (<p key={index}>{instituicao.nombreInstituicion}<span>${instituicao.lucro[props.month]}</span></p>)
+                            return (<p key={index}>{instituicao.nombreInstituicion}<span>${'lucro' in instituicao ? instituicao.lucro[props.month] : ''}</span></p>)
                         } else {
                             return (<></>);
                         }

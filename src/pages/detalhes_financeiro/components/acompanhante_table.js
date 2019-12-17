@@ -29,6 +29,7 @@ const AcompanhanteTable = (props) => {
             let horasTrabalhadas = (Financeiro.getHorasTrabalhadasInPacienteAndAcompanhante(props.sessoes, props.paciente.solicitacao._id.$oid, acompanhante._id.$oid, props.month));
             valor += props.instituicao.valorHora * horasTrabalhadas;
             valorATs += props.instituicao.valorHoraAT * horasTrabalhadas;
+            props.setTotalHoras(props.horasTrabalhadas + horasTrabalhadas);
         })
         props.setLucroPaciente(valor);
         props.setTotalATs(valorATs);

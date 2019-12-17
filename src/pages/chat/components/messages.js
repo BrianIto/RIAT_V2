@@ -45,9 +45,9 @@ const Messages = (props) => {
     if (props.selectedRoom.chat) {
         return (
             <ScrollToBottom mode={'bottom'} className={'messages_chat'}>
-                {"messages" in props.selectedRoom.chat ? props.selectedRoom.chat.messages.map((message) => (
+                {props.selectedRoom.chat.map((message) => (
                     <Message message={message}/>
-                )): <></>}
+                ))}
             </ScrollToBottom>
         )
     } else {

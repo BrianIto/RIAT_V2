@@ -41,31 +41,7 @@ const DetalheMes = props => {
         </div>
     )
 }
-{
-    /*  //Verifica se tá fechado
-                    if (checkIfMonthClosed()) {
-                        //Pega a Data
-                        let currentMes = moment(props.monthStr, 'MM').locale("pt_BR").format('MMMM');
-                        currentMes += " / 2019";
 
-                        props.mesesFechados.forEach((mes, index) => {
-                            //Compara a data com o vetor de não fechados para receber os dados do mes fechado.
-                            if (mes.mes === currentMes) {
-                                //Pega
-                                let instituicao
-                            }
-                        });
-                    } else {
-                        return (
-                            <DetalheInstituicao
-                                month={moment(props.monthStr, 'MM').month()}
-                                instituicao={instituicao}
-                                index={index}
-                                key={index}/>
-                        )
-                    }
-                })*/
-}
 const mapStateToProps = state => ({
     mesSelected: state.financeiro.mesSelected,
     mesesFechados: state.financeiro.mesesFechados,

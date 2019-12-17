@@ -8,6 +8,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {connect} from "react-redux";
 import axios from "axios";
 import moment from "moment/min/moment-with-locales";
+import {Actions} from "../../../../redux/actions";
+import {getInstituicao} from "../../../../DAOs/InstituicaoDAO";
 
 
 const FinanceiroModal = (props) => {
@@ -39,7 +41,7 @@ const FinanceiroModal = (props) => {
             },
         }).then(() => {
             alert('Sucesso!');
-            isLoading(false);
+            getInstituicao(props);
             props.closeModal();
         }).catch((err) => {
             alert(err);
@@ -82,9 +84,11 @@ const FinanceiroModal = (props) => {
                                     value={freqPagamento}
                                     input={<OutlinedInput labelWidth={labelWidth} name="age" id="outlined-age-simple"/>}
                                     onChange={(e) => setFreq(e.target.value)}>
-                                    <MenuItem value={1}>Pôr Mês</MenuItem>
-                                    <MenuItem value={2}>Bimestral</MenuItem>
-                                    <MenuItem value={3}>Trimestral</MenuItem>
+                                    <MenuItem value={15}>15 días</MenuItem>
+                                    <MenuItem value={30}>30 días</MenuItem>
+                                    <MenuItem value={45}>45 días</MenuItem>
+                                    <MenuItem value={60}>60 días</MenuItem>
+                                    <MenuItem value={90}>90 días</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
@@ -132,6 +136,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     closeModal: () => dispatch({type: 'CLOSE_MODAL'}),
+    setInstituicoes: instituicoes => dispatch({type: Actions.setInstituicoes, payload: instituicoes})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinanceiroModal);

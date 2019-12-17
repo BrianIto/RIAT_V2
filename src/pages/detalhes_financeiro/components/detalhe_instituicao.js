@@ -58,7 +58,7 @@ const DetalheInstituicao = (props) => {
                             setLucroTotal={setLucroTotal}
                             key={index}/>
                     )
-                }) ): <h2>Testeeee</h2>
+                }) ): <></>
             }
         </div>
     )

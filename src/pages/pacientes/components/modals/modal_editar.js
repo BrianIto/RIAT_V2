@@ -35,9 +35,10 @@ const ModalEditarPaciente = (props) => {
         const [familiar, setFamiliar] = useState(setValueIdOrEmptyString('familiar'));
         const [instituicao, setInstituicao] = useState(setValueIdOrEmptyString('instituicao'));
         const [medicos, setMedicos] = useState(getMedicos());
-
+        const [loading, setLoading] = useState(false);
         const [labelWidth, setLabelWidth] = useState(0);
         const inputLabel = React.useRef(null);
+
         React.useEffect(() => {
             setLabelWidth(inputLabel.current.offsetWidth);
         }, []);
@@ -60,7 +61,7 @@ const ModalEditarPaciente = (props) => {
 
         const handleSubmit = e => {
             e.preventDefault();
-
+            setLoading(true);
             const form = e.target;
             editPaciente(props, dataCleaningBeforeSubmit({
                     id: props.pacienteSelected._id,
@@ -73,6 +74,8 @@ const ModalEditarPaciente = (props) => {
                         instituicao: { $oid: instituicao },
                         medicos: [],
                     }
+                }, (res) => {
+                    setLoading(false);
                 })
             );
         }
@@ -120,6 +123,50 @@ const ModalEditarPaciente = (props) => {
                                     label={'Endereço'}
                                     fullWidth
                                 />
+                            </Grid>
+                            <Grid xs={12}>
+                                <h2 style={{margin: 0}}>Psis</h2>
+                            </Grid>
+                            {
+                                props.pacienteSelected.temPsi ? <Grid container spacing={2}>
+                                    <Grid item xs={6}>
+                                        <TextField
+                                            disabled
+                                            fullWidth
+                                            label={'Nome do Psicólogo'}
+                                            defaultValue={props.pacienteSelected.psicologo} />
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <TextField
+                                            disabled
+                                            fullWidth
+                                            label={'Telefone do Psicólogo'}
+                                            defaultValue={props.pacienteSelected.telefonoPsicologo} />
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <TextField
+                                            disabled
+                                            fullWidth
+                                            label={'Nome do Psiquiatra'}
+                                            defaultValue={props.pacienteSelected.psiquiatra} />
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <TextField
+                                            disabled
+                                            fullWidth
+                                            label={'Telefone do Psiquiatra'}
+                                            defaultValue={props.pacienteSelected.telefonoPsiquiatra} />
+                                    </Grid>
+                                </Grid> : <Grid xs={12}>
+                                    <p><i>O paciente não tem nenhum psi cadastrado.</i></p>
+                                </Grid>
+                            }
+                            <Grid item xs={12}>
+                                <TextField
+                                    disabled
+                                    fullWidth
+                                    label={'Diagnóstico'}
+                                    defaultValue={props.pacienteSelected.diagnostico} />
                             </Grid>
                             <Grid item xs={6}>
                                 <FormControl fullWidth variant={'outlined'}>
@@ -191,10 +238,11 @@ const ModalEditarPaciente = (props) => {
                             <Grid item style={{textAlign: 'right'}} xs={12}>
                                 <Button onClick={props.closeModal}>Cancelar</Button> &nbsp;
                                 <Button
+                                    disabled={loading}
                                     type={'submit'}
                                     variant={'contained'}
                                     color={'primary'}>
-                                    Confirmar
+                                        {loading ? "Carregando..." : "Confirmar"}
                                 </Button>
                             </Grid>
                         </Grid>

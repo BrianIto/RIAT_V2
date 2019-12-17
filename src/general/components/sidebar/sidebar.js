@@ -10,7 +10,7 @@ import {Tooltip} from "@material-ui/core";
 const sidebarOptions = [
     {
         pageName: 'DASHBOARD',
-        route: '/',
+        route: '/dashboard',
         component: <i className={'fas fa-chart-bar'}/>
     },
     {

@@ -30,32 +30,16 @@ const FormLogin = (props) => {
                             {_id: {$oid: user.id}, email: credential.user })
                             .then(res => {
                                 props.setUserData(res.data);
-                                // //tela de loading
-                                // getMedicos(props);
-                                // getInstituicao(props);
-                                // getFamiliares(props);
-                                // Financeiro.getMesesFechados(res => {
-                                //     props.setMesesFechados(res)
-                                // }, error => {
-                                //     alert("ERRO AO RECUPERAR MESES FECHADOS. INFO: "+error)
-                                // }, () => {});
-                                // Financeiro.getSessoes(res => {
-                                //     props.setSessoes(res.data);
-                                // }, err => alert('Erro ao recuperar sessoes. Erro: '+err));
-                                // Financeiro.getSaidasFromDB(res => {
-                                //     props.setSaidas(res.data);
-                                // }, () => {
-                                //     alert("Erro ao recuperar as saídas do banco.")
-                                // })
-                                // setPacientes(props);
-                                // getProfissionais(props);
                             })
                             .catch((err) => {
-                                alert(err);
+                                alert(err.message);
                             })
                     })
                     .catch(err => {
-                        alert('Usuário ou senha inválidos!')
+                        alert('Usuário ou senha inválidos!');
+                        localStorage.removeItem('login_user');
+                        localStorage.removeItem('login_password');
+                        makeItLoad(false);
                     });
             }
         }
@@ -74,6 +58,7 @@ const FormLogin = (props) => {
 
                 Stitch.defaultAppClient.auth.loginWithCredential(credential)
                     .then((user) => {
+                        console.log(user);
                         axios.post('https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/usuarios/incoming_webhook/admUpsert', {_id: {$oid: user.id}, email: form.input_user.value })
                             .then(res => {
                                 if (keepConnectedState) {
@@ -84,7 +69,7 @@ const FormLogin = (props) => {
                                 makeItLoad(false);
                             })
                             .catch((err) => {
-                                alert(err);
+                                alert(err.error);
                                 makeItLoad(false);
                             })
                     })

@@ -8,6 +8,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import {connect} from "react-redux";
 import {UserPasswordAuthProviderClient, Stitch} from "mongodb-stitch-browser-sdk"
 import axios from "axios";
+import Usuario from "../../../../DAOs/UsuarioDAO";
+import {Actions} from "../../../../redux/actions";
+
 
 const NewUserModal = (props) => {
 
@@ -28,13 +31,15 @@ const NewUserModal = (props) => {
 
     const [labelWidth, setLabelWidth] = React.useState(0);
     const inputLabel = React.useRef(null);
+    const [loading, setLoading] = React.useState(false);
+
     React.useEffect(() => {
         setLabelWidth(inputLabel.current.offsetWidth);
     }, []);
 
     const createNewUser = (email, password, name, permissions) => {
         const emailPassClient = Stitch.defaultAppClient.auth.getProviderClient(UserPasswordAuthProviderClient.factory)
-
+        setLoading(true);
         emailPassClient.registerWithEmail(email, password)
             .then((res) => {
                 axios.post('https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/usuarios/incoming_webhook/admCreate',
@@ -42,12 +47,20 @@ const NewUserModal = (props) => {
                         email: email,
                         name: name,
                         permissions: permissions,
-                        user_id: 'need to confirm email and login first time.'
+                        user_id: 'need to login first time.'
                     }).then((res) => {
-                    alert(JSON.stringify(res.data))
+                        Usuario.getUsuariosFromDB(res => {
+                            props.closeModal();
+                            setLoading(false);
+                            props.setUsuarios(res.data);
+                        }, (err) => {
+                            props.closeModal();
+                            setLoading(false);
+                            alert('Erro ao recuperar usuários do banco de dados! Erro: '+err );
+                        })
                 })
                     .catch((err) => {
-                        alert(err);
+                        alert(err.error);
                     })
             })
             .catch((err) => {
@@ -125,7 +138,9 @@ const NewUserModal = (props) => {
                         </Grid>
                         <Grid item style={{textAlign: 'right'}} xs={12}>
                             <Button onClick={props.closeModal}>Cancelar</Button> &nbsp;
-                            <Button type={'submit'} variant={'contained'} color={'primary'}>Confirmar</Button>
+                            <Button type={'submit'} variant={'contained'} color={'primary'} disabled={loading}>
+                                {loading ? 'Carregando' : 'Confirmar' }
+                            </Button>
                         </Grid>
                     </Grid>
                 </form>
@@ -137,7 +152,8 @@ const NewUserModal = (props) => {
 const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = (dispatch) => ({
-    closeModal: () => dispatch({type: 'CLOSE_MODAL'})
+    closeModal: () => dispatch({type: 'CLOSE_MODAL'}),
+    setUsuarios: usuarios => dispatch({type: Actions.setUsuarios, payload: usuarios})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewUserModal)

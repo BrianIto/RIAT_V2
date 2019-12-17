@@ -78,7 +78,6 @@ const DetalhesFinanceiroPage = (props) => {
             }else{
                 prox = +todos[j+1].mes;
             }
-            console.log(atual, prox);
             if(atual > prox){
                 aux = todos[j];
                 todos[j] = todos[j+1];
@@ -90,27 +89,6 @@ const DetalhesFinanceiroPage = (props) => {
             break;
         }
     }
-
-
-    /*
-    *  moment.locale('pt-BR');
-        console.log('comparando ', mes1, mes2);
-        if(mes1.mes.length > 3 && mes1.mes.length > 3){
-            let m1 = +moment(mes1.mes, 'MMMM / YYYY').locale('pt-BR').format('M');
-            let m2 = +moment(mes2.mes, 'MMMM / YYYY').locale('pt-BR').format('M');
-            return (+(m1)) < (+(m2));
-        }else if(mes1.mes.length < 3 && mes2.mes.length < 3) {
-            return (+(mes1.mes)) < (+(mes2.mes));
-        }else if(mes1.mes.length < 3 && mes2.mes.length > 3){
-            let m2 = +moment(mes2.mes, 'MMMM / YYYY').locale('pt-BR').format('M');
-            return (+(mes1.mes)) < (+(m2));
-        }else{
-            let m1 = +moment(mes1.mes, 'MMMM / YYYY').locale('pt-BR').format('M');
-            return (+(mes2.mes)) < (+(m1));
-        }
-    * */
-    console.log(todos);
-
 
     if (props.userData) {
         return (

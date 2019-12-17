@@ -1,4 +1,6 @@
 import React from 'react'
+import {Actions} from "../../../redux/actions";
+import {connect} from "react-redux";
 
 const countProfsType = (array) => {
     let counter = 0;
@@ -31,7 +33,10 @@ const TableCuidadores = (props) => (
                         <td>{ profissional.nombre }</td>
                         <td>{ profissional.email }</td>
                         <td>{ profissional.telefone }</td>
-                        <td><button>Editar</button> <button>Desvincular</button></td>
+                        <td><button onClick={() => {
+                            props.selectProfissional(profissional);
+                            props.openModal('MODAL_EDITAR_PROFISSIONAL', 'sm');
+                        }}>Editar</button> &nbsp;<button>Desvincular</button></td>
                     </tr>
             )) }
             </tbody>
@@ -43,4 +48,13 @@ const TableCuidadores = (props) => (
         </div>
 )
 
-export default TableCuidadores
+const mapStateToProps = state => ({
+})
+
+const mapDispatchToProps = dispatch => ({
+    selectProfissional: profissional => dispatch({type: Actions.selectProfissional, payload: profissional}),
+    openModal: (modalType, modalSize) => dispatch({type: 'SHOW_MODAL', payload: modalType, size: modalSize})
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableCuidadores)

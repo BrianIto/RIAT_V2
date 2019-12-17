@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getInstituicao = props => {
+const getInstituicao = (props) => {
     return axios
         .get('https://webhooks.mongodb-stitch.com/api/client/v2.0/app/riat-sfhra/service/instituicao/incoming_webhook/getInstituicaoComFuncionario')
         .then(res => {

@@ -10,6 +10,7 @@ import FinanceiroModal from "../../../pages/instituicoes/components/modals/finan
 import ModalEditarPaciente from "../../../pages/pacientes/components/modals/modal_editar";
 import NovaSaidaModal from "../../../pages/financeiro/components/modals/nova_saida";
 import FecharMesModal from "../../../pages/detalhes_financeiro/components/modals/confirm_fechar_mes";
+import ModalEditarProfissional from '../../../pages/profissionais/components/modals/modal_editar';
 
 const renderModalAccordingly = (modalType) => {
     switch (modalType) {
@@ -19,6 +20,8 @@ const renderModalAccordingly = (modalType) => {
             return <ModalMatch />
         case 'NEW_USER_MODAL':
             return <NewUserModal />
+        case 'MODAL_EDITAR_PROFISSIONAL':
+            return <ModalEditarProfissional />
         case 'DADOS_FINANCEIROS_MODAL':
             return <FinanceiroModal />
         case 'MODAL_EDITAR_PACIENTE':

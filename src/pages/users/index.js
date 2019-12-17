@@ -14,7 +14,7 @@ const tabsData = [{name: 'TODOS'}, {name: 'CONTROLADURÍA'}, {name: 'ADMINISTRAT
 
 const useStyles = makeStyles(theme => ({
     fab: {
-        position:'absolute',
+        position:'fixed',
         bottom: theme.spacing(3),
         right: theme.spacing(3)
     }
