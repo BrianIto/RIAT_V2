@@ -2,14 +2,17 @@ import React from "react"
 import {connect} from "react-redux";
 import Button from "@material-ui/core/Button";
 import "../styles/table_pendentes.sass"
-import {acceptProfissional} from "../../../DAOs/ProfissionalDAO";
+import {acceptProfissional, getProfissionais, rejectProfissional} from "../../../DAOs/ProfissionalDAO";
+import {Actions} from "../../../redux/actions";
 
 const TablePendentes = (props) => {
 
     const [loading, setLoading] = React.useState(false);
 
     const checkIfPendente = (profissional) => {
-        if ('accepted' in profissional) {
+        if (loading) {
+            return 'Carregando...'
+        } else if ('accepted' in profissional) {
             return profissional.accepted ? 'Aceito' : 'Recusado';
         } else {
             return 'pendente';
@@ -21,22 +24,40 @@ const TablePendentes = (props) => {
             {props.profissionais.map((profissional, index) => (
                 <div className={'field'} key={index}>
                     <div>
-                        <h2>{profissional.nombre }</h2>
+                        <h2 style={{margin: 0}}>{profissional.nombre }</h2>
                         <p>{profissional.email}</p>
                         <p>{profissional.telefone}</p>
                         <p>{checkIfPendente(profissional)}</p>
-                        <Button>Verificar Documentação</Button>
+                        <Button onClick={() => {
+                            props.selectProfissional(profissional);
+                            props.openModal('MODAL_DOCUMENTOS_PROFISSIONAL', 'sm')
+                        }}>Verificar Documentação</Button>
                     </div>
-                    <div>
+                    <div className={'btns_container'}>
                         <Button
-                            disabled={true}
+                            variant={'contained'}
+                            color={'primary'}
+                            disabled={loading}
                             onClick={() => {
-                            setLoading(true);
+                                setLoading(true);
                             acceptProfissional(profissional._id, () => {
-
+                                getProfissionais(props, () => {
+                                    alert('Funcionário aceito com sucesso!');
+                                    setLoading(false);
+                                });
                             })
-                        }}>Aceitar</Button>
-                        <Button disabled={loading}>Reprovar</Button>
+                        }}>Aceitar</Button> &nbsp;
+                        <Button disabled={loading}
+                                variant={'contained'}
+                                color={'secondary'}
+                                onClick={() => {
+                                    setLoading(true);
+                                    rejectProfissional(profissional._id, () => {
+                                        getProfissionais(props, () => {
+                                            alert('Funcionário recusado com sucesso!');
+                                            setLoading(false);
+                                        });
+                                    })}}>Reprovar</Button>
                     </div>
                 </div>
             ))}
@@ -48,6 +69,10 @@ const mapStateToProps = (state) => ({
     profissionais: state.profissionais.profissionais
 })
 
-const mapDispatchToProps = (dispatch) => ({})
+const mapDispatchToProps = (dispatch) => ({
+    getProfissionais: profissionais => dispatch({type: Actions.setProfissionais, payload: profissionais}),
+    selectProfissional: profissional => dispatch({type: Actions.selectProfissional, payload: profissional}),
+    openModal: (modalType, modalSize) => dispatch({type: 'SHOW_MODAL', payload: modalType, size: modalSize})
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(TablePendentes)

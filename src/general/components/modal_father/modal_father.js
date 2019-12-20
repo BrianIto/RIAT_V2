@@ -11,6 +11,7 @@ import ModalEditarPaciente from "../../../pages/pacientes/components/modals/moda
 import NovaSaidaModal from "../../../pages/financeiro/components/modals/nova_saida";
 import FecharMesModal from "../../../pages/detalhes_financeiro/components/modals/confirm_fechar_mes";
 import ModalEditarProfissional from '../../../pages/profissionais/components/modals/modal_editar';
+import ModalDocumentos from "../../../pages/profissionais/components/modals/modal_documentos";
 
 const renderModalAccordingly = (modalType) => {
     switch (modalType) {
@@ -30,6 +31,8 @@ const renderModalAccordingly = (modalType) => {
             return <FecharMesModal />
         case 'MODAL_NOVA_SAIDA':
             return <NovaSaidaModal />
+        case 'MODAL_DOCUMENTOS_PROFISSIONAL':
+            return <ModalDocumentos/>
             default:
             return <h2>Esse modal não existe. Algum erro foi cometido.</h2>
     }
