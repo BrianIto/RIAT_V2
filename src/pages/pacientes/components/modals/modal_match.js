@@ -186,7 +186,8 @@ const ModalMatch = (props) => {
                                         <Button
                                             variant={'contained'}
                                             onClick={() => {
-                                                // TODO: informacoes.
+                                                props.setProfissionalSelected(profissional);
+                                                props.openModalOver('MATCH_MODAL', 'lg', 'MODAL_DOCUMENTOS_PROFISSIONAL', 'sm')
                                             }}
                                             color={'primary'}>
                                             + Info
@@ -235,7 +236,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({type: 'CLOSE_MODAL'}),
-    getProfissionais: profissionais => dispatch({type: Actions.setProfissionais, payload: profissionais})
-})
+    getProfissionais: profissionais => dispatch({type: Actions.setProfissionais, payload: profissionais}),
+    setProfissionalSelected: profissional => dispatch({type: Actions.selectProfissional, payload: profissional}),
+    openModalOver: (prevModal, prevModalSize, modalType, modalSize) => dispatch({type: 'SHOW_MODAL_OVER', payload: {
+            modalType, size: modalSize, prevModal, prevModalSize
+        }
+    })
+});
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalMatch);
